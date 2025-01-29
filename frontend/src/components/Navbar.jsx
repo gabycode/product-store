@@ -1,15 +1,49 @@
-import React from "react";
 import { Link } from "react-router-dom";
+import { useTheme } from "../context/ThemeContext";
 
 const Navbar = () => {
+  const { darkMode, toggleDarkMode } = useTheme();
   return (
-    <div className="max-w-[1440px] px-4">
-      <div className="flex flex-col items-center justify-between py-4 h-6 bg-red-500 md:flex-row">
-        <Link to={"/"} className="text-white">
-          Product Store
-        </Link>
-        <div className="flex items-center">
-          <Link to={"/create"}>Create</Link>
+    <div className="w-full px-4 bg-white shadow-md md:px-8 dark:bg-gray-900">
+      <div className="max-w-[1440px] mx-auto flex flex-col items-center justify-between py-4 min-h-16 md:flex-row md:gap-4 dark:text-white">
+        <Link to={"/"}>Product Store</Link>
+        <div className="flex flex-col items-center md:flex-row md:gap-4">
+          <Link
+            to={"/create"}
+            className="flex items-center gap-2 text-sm px-6 py-2 rounded-full text-white bg-black font-medium dark:bg-white dark:text-black ">
+            Create Product
+          </Link>
+          <button onClick={toggleDarkMode} className="flex items-center gap-2">
+            {darkMode ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="size-6">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
+                />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="size-6">
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"
+                />
+              </svg>
+            )}
+          </button>
         </div>
       </div>
     </div>
