@@ -4,13 +4,13 @@ import { useTheme } from "../context/ThemeContext";
 const Navbar = () => {
   const { darkMode, toggleDarkMode } = useTheme();
   return (
-    <div className="w-full px-4 bg-white shadow-md md:px-8 dark:bg-gray-900">
-      <div className="max-w-[1440px] mx-auto flex flex-col items-center justify-between py-4 min-h-16 md:flex-row md:gap-4 dark:text-white">
+    <div className="absolute w-full px-4 bg-white shadow-md md:px-8 dark:bg-gray-900 dark:border dark:border-gray-800">
+      <div className="max-w-[1440px] mx-auto flex  items-center justify-between py-4 min-h-16 md:flex-row md:gap-4 dark:text-white">
         <Link to={"/"}>Product Store</Link>
-        <div className="flex flex-col items-center md:flex-row md:gap-4">
+        <div className="flex items-center gap-4">
           <Link
             to={"/create"}
-            className="flex items-center gap-2 text-sm px-6 py-2 rounded-full text-white bg-black font-medium dark:bg-white dark:text-black ">
+            className="flex items-center gap-2 text-sm px-6 py-2 rounded-full text-white bg-black font-semibold dark:bg-white dark:text-black ">
             Create Product
           </Link>
           <button onClick={toggleDarkMode} className="flex items-center gap-2">
