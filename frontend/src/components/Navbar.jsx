@@ -10,7 +10,7 @@ const Navbar = () => {
         <div className="flex items-center gap-4">
           <Link
             to={"/create"}
-            className="flex items-center gap-2 text-sm px-6 py-2 rounded-full text-white bg-black font-semibold dark:bg-white dark:text-black ">
+            className="flex items-center gap-2 text-sm px-6 py-2 rounded-full text-white bg-black font-semibold dark:bg-gray-700">
             Create Product
           </Link>
           <button onClick={toggleDarkMode} className="flex items-center gap-2">
