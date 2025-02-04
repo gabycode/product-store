@@ -31,7 +31,7 @@ const CreatePage = () => {
   return (
     <div className="h-screen dark:bg-gray-900">
       <div className="flex flex-col justify-center max-w-2xl mx-auto h-full ">
-        <div className="flex flex-col gap-4 p-8 bg-white rounded-lg shadow-lg dark:bg-gray-800 ">
+        <div className="border-t-[8px] border-black flex flex-col gap-4 p-8 bg-white rounded-lg shadow-lg dark:bg-gray-800 dark:border-gray-700">
           <h1 className="text-black text-xl font-bold mb-4 dark:text-white">
             Create new product
           </h1>
