@@ -30,4 +30,16 @@ export const useProductStore = create((set) => ({
       console.log("Failed to fetch products", error);
     }
   },
+  deleteProduct: async (id) => {
+    const res = await fetch(`/api/products/${id}`, {
+      method: "DELETE",
+    });
+    const data = await res.json();
+    if (!data.success) return { success: false, message: data.message };
+
+    set((state) => ({
+      products: state.products.filter((product) => product._id !== id),
+    }));
+    return { success: true, message: "Product deleted successfully" };
+  },
 }));
