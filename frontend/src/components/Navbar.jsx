@@ -6,7 +6,7 @@ const Navbar = () => {
   const { darkMode, toggleDarkMode } = useTheme();
   return (
     <div className="absolute w-full px-4 border-b border-slate-900/5 md:px-8  dark:border dark:border-gray-800">
-      <div className="max-w-[1440px] mx-auto flex  items-center justify-between py-4 min-h-16 md:flex-row md:gap-4 dark:text-white">
+      <div className="max-w-7xl mx-auto flex  items-center justify-between py-4 min-h-16 md:flex-row md:gap-4 dark:text-white">
         <Link to={"/"}>Product Store</Link>
         <div className="flex items-center gap-4">
           <Link
