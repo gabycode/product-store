@@ -11,7 +11,7 @@ const ProductCard = ({
   setShowErrorNotif,
   showSuccessNotif,
   setShowSuccessNotif,
-  handleDeleteProduct,
+  openDeleteModal,
 }) => {
   return (
     <div className="flex flex-col bg-white dark:bg-gray-900 p-4 rounded-lg shadow-md dark:border dark:border-slate-800">
@@ -30,7 +30,7 @@ const ProductCard = ({
         <div className="flex gap-2">
           <PencilSquareIcon className="size-5 text-black-500 cursor-pointer dark:text-white" />
           <TrashIcon
-            onClick={() => handleDeleteProduct(product._id)}
+            onClick={() => openDeleteModal(product._id)}
             className="size-5 text-red-500 cursor-pointer"
           />
         </div>
