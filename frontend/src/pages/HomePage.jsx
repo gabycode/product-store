@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useProductStore } from "../store/product";
 import ProductCard from "../components/ProductCard";
+import { ConfirmProductDeleteModal } from "../components/modals";
 
 const HomePage = () => {
   const { fetchProducts, products } = useProductStore();
@@ -10,6 +11,8 @@ const HomePage = () => {
 
   const [showSuccessNotif, setShowSuccessNotif] = useState(false);
   const [showErrorNotif, setShowErrorNotif] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [productIdToDelete, setProductIdToDelete] = useState(null);
 
   const handleDeleteProduct = async (id) => {
     try {
@@ -27,6 +30,11 @@ const HomePage = () => {
       setShowErrorNotif(true);
       setTimeout(() => setShowErrorNotif(false), 3000);
     }
+  };
+
+  const openDeleteModal = (id) => {
+    setProductIdToDelete(id);
+    setShowModal(true);
   };
 
   useEffect(() => {
@@ -51,7 +59,7 @@ const HomePage = () => {
                   setShowErrorNotif={setShowErrorNotif}
                   showSuccessNotif={showSuccessNotif}
                   setShowSuccessNotif={setShowSuccessNotif}
-                  handleDeleteProduct={handleDeleteProduct}
+                  openDeleteModal={openDeleteModal}
                 />
               ))}
             </div>
@@ -72,6 +80,12 @@ const HomePage = () => {
           </div>
         )}
       </div>
+      <ConfirmProductDeleteModal
+        open={showModal}
+        setOpen={setShowModal}
+        handleDeleteProduct={handleDeleteProduct}
+        productIdToDelete={productIdToDelete}
+      />
     </div>
   );
 };
