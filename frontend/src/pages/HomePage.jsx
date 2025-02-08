@@ -9,8 +9,9 @@ const HomePage = () => {
 
   const { deleteProduct } = useProductStore();
 
-  const [showSuccessNotif, setShowSuccessNotif] = useState(false);
-  const [showErrorNotif, setShowErrorNotif] = useState(false);
+  const [showDeleteSuccessNotif, setShowDeleteSuccessNotif] = useState(false);
+  const [showDeleteErrorNotif, setShowDeleteErrorNotif] = useState(false);
+  const [showUpdateSuccessNotif, setShowUpdateSuccessNotif] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [productIdToDelete, setProductIdToDelete] = useState(null);
 
@@ -19,16 +20,16 @@ const HomePage = () => {
       const { success } = await deleteProduct(id);
       if (success) {
         console.log("product deleted");
-        setShowSuccessNotif(true);
-        setTimeout(() => setShowSuccessNotif(false), 3000);
+        setShowDeleteSuccessNotif(true);
+        setTimeout(() => setShowDeleteSuccessNotif(false), 3000);
       } else {
         console.log("error");
-        setShowErrorNotif(true);
-        setTimeout(() => setShowErrorNotif(false), 3000);
+        setShowDeleteErrorNotif(true);
+        setTimeout(() => setShowDeleteErrorNotif(false), 3000);
       }
     } catch (error) {
-      setShowErrorNotif(true);
-      setTimeout(() => setShowErrorNotif(false), 3000);
+      setShowDeleteErrorNotif(true);
+      setTimeout(() => setShowDeleteErrorNotif(false), 3000);
     }
   };
 
@@ -55,10 +56,12 @@ const HomePage = () => {
                 <ProductCard
                   key={product._id}
                   product={product}
-                  showErrorNotif={showErrorNotif}
-                  setShowErrorNotif={setShowErrorNotif}
-                  showSuccessNotif={showSuccessNotif}
-                  setShowSuccessNotif={setShowSuccessNotif}
+                  showDeleteErrorNotif={showDeleteErrorNotif}
+                  setShowDeleteErrorNotif={setShowDeleteErrorNotif}
+                  showDeleteSuccessNotif={showDeleteSuccessNotif}
+                  setShowDeleteSuccessNotif={setShowDeleteSuccessNotif}
+                  showUpdateSuccessNotif={showUpdateSuccessNotif}
+                  setShowUpdateSuccessNotif={setShowUpdateSuccessNotif}
                   openDeleteModal={openDeleteModal}
                 />
               ))}
