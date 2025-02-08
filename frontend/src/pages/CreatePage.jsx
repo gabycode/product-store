@@ -5,6 +5,7 @@ import {
   AddProductErrorNotif,
 } from "../components/notifications";
 import { Link } from "react-router-dom";
+import { ProductCreatedModal } from "../components/modals";
 
 const CreatePage = () => {
   const [newProduct, setNewProduct] = useState({
@@ -15,6 +16,7 @@ const CreatePage = () => {
 
   const [showSuccessNotif, setShowSuccessNotif] = useState(false);
   const [showErrorNotif, setShowErrorNotif] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const { createProduct } = useProductStore();
 
@@ -22,6 +24,7 @@ const CreatePage = () => {
     const { success } = await createProduct(newProduct);
     if (success) {
       setShowSuccessNotif(true);
+      setShowModal(true);
     } else {
       setShowErrorNotif(true);
     }
@@ -32,7 +35,7 @@ const CreatePage = () => {
   return (
     <div className="h-screen bg-[url('/gradient.png')] bg-cover bg-center dark:bg-[url('/dark-gradient.webp')] ">
       <div className="flex flex-col justify-center max-w-2xl mx-auto h-full ">
-        <div className="divide-gray-200 border px-8 py-2 flex flex-col bg-white rounded-lg shadow dark:bg-gray-950 dark:border-slate-800 dark:divide-gray-700">
+        <div className="divide-gray-200 border px-8 py-2 flex flex-col bg-white rounded-lg shadow dark:bg-gray-950/60 dark:border-slate-800 dark:divide-gray-700">
           <div className="py-5 px-3 ">
             <h1 className="text-black text-2xl font-bold dark:text-white">
               Create new product
@@ -110,6 +113,7 @@ const CreatePage = () => {
         show={showErrorNotif}
         onClose={() => setShowErrorNotif(false)}
       />
+      {showModal && <ProductCreatedModal />}
     </div>
   );
 };
