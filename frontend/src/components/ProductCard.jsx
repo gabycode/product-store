@@ -3,16 +3,23 @@ import { TrashIcon, PencilSquareIcon } from "@heroicons/react/20/solid";
 import {
   DeleteProductErrorNotif,
   DeleteProductSuccessNotif,
+  UpdateProductSuccessNotif,
 } from "./notifications";
+import { EditProductModal } from "./modals";
 
 const ProductCard = ({
   product,
-  showErrorNotif,
-  setShowErrorNotif,
-  showSuccessNotif,
-  setShowSuccessNotif,
+  showDeleteErrorNotif,
+  setShowDeleteErrorNotif,
+  showDeleteSuccessNotif,
+  setShowDeleteSuccessNotif,
+  showUpdateSuccessNotif,
+  setShowUpdateSuccessNotif,
   openDeleteModal,
 }) => {
+  const [showModal, setShowModal] = useState(false);
+  const [updatedProduct, setUpdatedProduct] = useState(product);
+
   return (
     <div className="flex flex-col bg-white dark:bg-gray-900 p-4 rounded-lg shadow-md dark:border dark:border-slate-800">
       <img
@@ -28,7 +35,10 @@ const ProductCard = ({
           ${product.price}
         </p>
         <div className="flex gap-2">
-          <PencilSquareIcon className="size-5 text-black-500 cursor-pointer dark:text-white" />
+          <PencilSquareIcon
+            onClick={() => setShowModal(true)}
+            className="size-5 text-black-500 cursor-pointer dark:text-white"
+          />
           <TrashIcon
             onClick={() => openDeleteModal(product._id)}
             className="size-5 text-red-500 cursor-pointer"
@@ -36,12 +46,25 @@ const ProductCard = ({
         </div>
       </div>
       <DeleteProductSuccessNotif
-        show={showSuccessNotif}
-        onClose={() => setShowSuccessNotif(false)}
+        show={showDeleteSuccessNotif}
+        onClose={() => setShowDeleteSuccessNotif(false)}
       />
       <DeleteProductErrorNotif
-        show={showErrorNotif}
-        onClose={() => setShowErrorNotif(false)}
+        show={showDeleteErrorNotif}
+        onClose={() => setShowDeleteErrorNotif(false)}
+      />
+      <UpdateProductSuccessNotif
+        show={showUpdateSuccessNotif}
+        onClose={() => setShowUpdateSuccessNotif(false)}
+      />
+      <EditProductModal
+        product={product}
+        updatedProduct={updatedProduct}
+        setUpdatedProduct={setUpdatedProduct}
+        open={showModal}
+        setOpen={setShowModal}
+        showUpdateSuccessNotif={showUpdateSuccessNotif}
+        setShowUpdateSuccessNotif={setShowUpdateSuccessNotif}
       />
     </div>
   );
