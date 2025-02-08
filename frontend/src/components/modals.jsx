@@ -11,6 +11,8 @@ import {
 } from "@heroicons/react/24/outline";
 import { Link } from "react-router-dom";
 import { useTheme } from "../context/ThemeContext";
+import { useProductStore } from "../store/product";
+import { set } from "mongoose";
 
 export function ProductCreatedModal() {
   const [open, setOpen] = useState(true);
@@ -126,6 +128,139 @@ export function ConfirmProductDeleteModal({
                 data-autofocus
                 onClick={() => setOpen(!open)}
                 className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">
+                Cancel
+              </button>
+            </div>
+          </DialogPanel>
+        </div>
+      </div>
+    </Dialog>
+  );
+}
+
+export function EditProductModal({
+  product,
+  updatedProduct,
+  setUpdatedProduct,
+  open,
+  setOpen,
+  showUpdatedSuccessNotif,
+  setShowUpdateSuccessNotif,
+}) {
+  const { updateProduct } = useProductStore();
+  const { darkMode } = useTheme();
+
+  const handleUpdateProduct = async (id, updatedProduct) => {
+    const { success, message } = await updateProduct(id, updatedProduct);
+    if (success) {
+      setOpen(false);
+      setShowUpdateSuccessNotif(true);
+    } else {
+      console.error("Error while updating product", message);
+    }
+  };
+  return (
+    <Dialog
+      open={open}
+      onClose={setOpen}
+      className={`relative z-10 ${darkMode ? "dark" : ""}`}>
+      <DialogBackdrop
+        transition
+        className="fixed inset-0 bg-gray-500/75 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"
+      />
+
+      <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+          <DialogPanel
+            transition
+            className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all data-[closed]:translate-y-4 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in sm:my-8 sm:w-full sm:max-w-sm sm:p-6 data-[closed]:sm:translate-y-0 data-[closed]:sm:scale-95 dark:bg-gray-900 ">
+            <div className="text-center">
+              <DialogTitle
+                as="h3"
+                className="text-xl font-semibold text-gray-900 dark:text-white">
+                Edit product
+              </DialogTitle>
+              <div className="mt-2">
+                <p className="text-sm text-gray-500">
+                  Adjust name, pricing and image as needed.
+                </p>
+              </div>
+            </div>
+
+            <div className="py-5  px-3 flex flex-col gap-3">
+              <div className="flex flex-col ">
+                <label htmlFor="name" className="font-semibold dark:text-white">
+                  Name
+                </label>
+                <input
+                  value={updatedProduct.name}
+                  onChange={(e) =>
+                    setUpdatedProduct({
+                      ...updatedProduct,
+                      name: e.target.value,
+                    })
+                  }
+                  type="text"
+                  placeholder="Enter product name"
+                  className="py-2 px-3 font-medium border border-gray-300 text-sm rounded dark:bg-gray-900 dark:text-white dark:border-gray-700"
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label
+                  htmlFor="price"
+                  className="font-semibold dark:text-white">
+                  Price
+                </label>
+                <input
+                  value={updatedProduct.price}
+                  onChange={(e) =>
+                    setUpdatedProduct({
+                      ...updatedProduct,
+                      price: e.target.value,
+                    })
+                  }
+                  type="text"
+                  placeholder="Enter product price"
+                  className="py-2 px-3 font-medium border border-gray-300 text-sm rounded dark:bg-gray-900 dark:text-white dark:border-gray-700"
+                />
+              </div>
+
+              <div className="flex flex-col">
+                <label
+                  htmlFor="image"
+                  className="font-semibold dark:text-white">
+                  Image
+                </label>
+                <input
+                  value={updatedProduct.image}
+                  onChange={(e) =>
+                    setUpdatedProduct({
+                      ...updatedProduct,
+                      image: e.target.value,
+                    })
+                  }
+                  type="text"
+                  placeholder="Enter image URL"
+                  className="py-2 px-3 font-medium border border-gray-300 text-sm rounded dark:bg-gray-900 dark:text-white dark:border-gray-700"
+                />
+              </div>
+            </div>
+
+            <div className="mt-5 sm:mt-6 sm:grid sm:grid-flow-row-dense sm:grid-cols-2 sm:gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  handleUpdateProduct(product._id, updatedProduct);
+                }}
+                className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2">
+                Save changes
+              </button>
+              <button
+                type="button"
+                data-autofocus
+                onClick={() => setOpen(false)}
+                className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:col-start-1 sm:mt-0">
                 Cancel
               </button>
             </div>
