@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "mongodb": "^6.13.0",
     "product_store": "file:..",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
