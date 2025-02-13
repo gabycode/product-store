@@ -19,11 +19,9 @@ const HomePage = () => {
     try {
       const { success } = await deleteProduct(id);
       if (success) {
-        console.log("product deleted");
         setShowDeleteSuccessNotif(true);
         setTimeout(() => setShowDeleteSuccessNotif(false), 3000);
       } else {
-        console.log("error");
         setShowDeleteErrorNotif(true);
         setTimeout(() => setShowDeleteErrorNotif(false), 3000);
       }
@@ -41,7 +39,6 @@ const HomePage = () => {
   useEffect(() => {
     fetchProducts();
   }, [fetchProducts]);
-  console.log("products", products);
 
   return (
     <div className="min-h-screen flex items-center bg-[url('/gradient.png')] bg-cover bg-center dark:bg-[url('/dark-gradient.webp')] py-20  md:py-24">
